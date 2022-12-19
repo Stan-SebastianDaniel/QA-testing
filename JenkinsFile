@@ -13,14 +13,21 @@ pipeline {
 
         stage('Build'){
             steps{
-                bat  'javac -cp "junit.jar" CarTest.java Car.java App.java'
+                bat  'javac -cp "junit.jar" CarTest.java CarSoundTest.java Car.java App.java'
             }
         }
 
         stage('Test'){
-            steps{
-                bat  'java -jar junit.jar -cp "." --select-class CarTest'
-            }
+            Stage('CarTest'){
+                steps{
+                    bat  'java -jar junit.jar -cp "." --select-class CarTest'
+                }
+             }
+             Stage('CarSoundTest'){
+                steps{
+                    bat  'java -jar junit.jar -cp "." --select-class CarSoundTest'
+                }
+             }
         }
 
         stage('Deploy'){
