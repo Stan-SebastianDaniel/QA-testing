@@ -30,6 +30,10 @@ public class Car {
         System.out.println("Stopped"); 
     }
     
+    public String makeSound(){
+        return "Vrooom Vroom!";
+    }
+    
     public String getMake(){
         return mMake; 
     }
