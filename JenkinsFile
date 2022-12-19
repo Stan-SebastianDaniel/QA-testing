@@ -17,18 +17,15 @@ pipeline {
             }
         }
 
-        stage('Test'){
-            Stage('CarTest'){
+        stage('CarTest'){
                 steps{
                     bat  'java -jar junit.jar -cp "." --select-class CarTest'
                 }
-             }
-             Stage('CarSoundTest'){
+         stage('CarSoundTest'){
                 steps{
                     bat  'java -jar junit.jar -cp "." --select-class CarSoundTest'
                 }
              }
-        }
 
         stage('Deploy'){
             steps{
