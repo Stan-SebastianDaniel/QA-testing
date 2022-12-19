@@ -6,30 +6,31 @@ pipeline {
         stage('Checkout Codebase'){
             steps{
                 cleanWs()
-                checkout scm: [$class: 'GitSCM', branches: [[name: '*/main']],userRemoteConfigs:
-                [[credentialsId: '4c6fadd0-1796-4991-acb6-a208106267c8', url: 'git@github.com:Stan-SebastianDaniel/TestJenkins.git']]]
+                checkout scm: [$class: 'GitSCM', branches: [[name: '*/main']]
             }
         }
 
         stage('Build'){
             steps{
-                bat  'javac -cp "junit.jar" CarTest.java CarSoundTest.java Car.java App.java'
+                sh 'javac -cp "junit.jar" CarTest.java CarSoundTest.java Car.java App.java'
             }
         }
 
         stage('CarTest'){
-                steps{
-                    bat  'java -jar junit.jar -cp "." --select-class CarTest'
-                }
-         stage('CarSoundTest'){
-                steps{
-                    bat  'java -jar junit.jar -cp "." --select-class CarSoundTest'
-                }
-             }
+            steps{
+                sh 'java -jar junit.jar -cp "." --select-class CarTest'
+            }
+        }
+        
+        stage('CarSoundTest'){
+            steps{
+                sh 'java -jar junit.jar -cp "." --select-class CarSoundTest'
+            }
+        }
 
         stage('Deploy'){
             steps{
-                bat  'java App' 
+                sh 'java App' 
             }
         }
     }
